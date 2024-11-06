@@ -23,7 +23,15 @@ public class FieldEntity {
     @Column(columnDefinition = "LONGTEXT")
     private String imageTwo;
 
-
     @ManyToMany(mappedBy = "fields", cascade = CascadeType.ALL)
     private List<CropEntity> crops;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "log_field",
+            joinColumns = @JoinColumn(name = "field_id"),
+            inverseJoinColumns = @JoinColumn(name = "log_id")
+    )
+    private List<LogEntity> logs;
+
 }
