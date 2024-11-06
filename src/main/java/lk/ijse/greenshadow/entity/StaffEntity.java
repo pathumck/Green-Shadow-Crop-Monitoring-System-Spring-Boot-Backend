@@ -46,4 +46,7 @@ public class StaffEntity {
             inverseJoinColumns = @JoinColumn(name = "field_id")
     )
     private List<FieldEntity> fields;
+
+    @OneToMany(mappedBy = "staff", cascade = CascadeType.ALL)
+    private List<VehicleEntity> vehicles;
 }
