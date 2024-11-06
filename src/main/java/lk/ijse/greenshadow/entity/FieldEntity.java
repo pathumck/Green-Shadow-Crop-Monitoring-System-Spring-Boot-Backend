@@ -34,4 +34,6 @@ public class FieldEntity {
     )
     private List<LogEntity> logs;
 
+    @ManyToMany(mappedBy = "fields", cascade = CascadeType.ALL)
+    List<StaffEntity> staffs;
 }

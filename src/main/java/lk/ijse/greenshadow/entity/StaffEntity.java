@@ -38,4 +38,12 @@ public class StaffEntity {
             inverseJoinColumns = @JoinColumn(name = "log_id")
     )
     private List<LogEntity> logs;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "field_staff",
+            joinColumns = @JoinColumn(name = "staff_id"),
+            inverseJoinColumns = @JoinColumn(name = "field_id")
+    )
+    private List<FieldEntity> fields;
 }
