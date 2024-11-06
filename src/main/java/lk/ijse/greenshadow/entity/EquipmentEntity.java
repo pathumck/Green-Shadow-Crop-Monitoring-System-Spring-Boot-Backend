@@ -19,4 +19,7 @@ public class EquipmentEntity {
     @ManyToOne
     @JoinColumn(name = "staff_id")
     StaffEntity staff;
+    @ManyToOne
+    @JoinColumn(name = "field_id")
+    FieldEntity field;
 }

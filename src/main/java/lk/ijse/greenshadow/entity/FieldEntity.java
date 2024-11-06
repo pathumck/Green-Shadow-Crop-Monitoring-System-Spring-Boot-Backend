@@ -36,4 +36,7 @@ public class FieldEntity {
 
     @ManyToMany(mappedBy = "fields", cascade = CascadeType.ALL)
     List<StaffEntity> staffs;
+
+    @OneToMany(mappedBy = "field", cascade = CascadeType.ALL)
+    private List<EquipmentEntity> equipment;
 }
