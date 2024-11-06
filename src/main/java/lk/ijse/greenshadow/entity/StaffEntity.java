@@ -49,4 +49,7 @@ public class StaffEntity {
 
     @OneToMany(mappedBy = "staff", cascade = CascadeType.ALL)
     private List<VehicleEntity> vehicles;
+
+    @OneToMany(mappedBy = "staff", cascade = CascadeType.ALL)
+    private List<EquipmentEntity> equipment;
 }
