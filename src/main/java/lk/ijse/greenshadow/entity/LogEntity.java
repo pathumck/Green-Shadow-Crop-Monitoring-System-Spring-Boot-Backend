@@ -25,4 +25,7 @@ public class LogEntity {
 
     @ManyToMany(mappedBy = "logs", cascade = CascadeType.ALL)
     private List<CropEntity> crops;
+
+    @ManyToMany(mappedBy = "logs", cascade = CascadeType.ALL)
+    private List<StaffEntity> staffs;
 }
