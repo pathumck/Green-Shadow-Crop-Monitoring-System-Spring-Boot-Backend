@@ -60,4 +60,9 @@ public class FieldController {
         fieldService.deleteField(fieldCode);
         return new ResponseUtil("Success", "Field Deleted", null);
     }
+
+    @GetMapping
+    public ResponseUtil getAllFields() {
+        return new ResponseUtil("Success", "Retrieved All Fields", fieldService.getAllFields());
+    }
 }

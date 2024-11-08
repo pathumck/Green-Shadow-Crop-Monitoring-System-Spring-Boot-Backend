@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class FieldServiceImpl implements FieldService {
@@ -37,5 +39,10 @@ public class FieldServiceImpl implements FieldService {
             throw new RuntimeException("Field Does Not Exist");
         }
         fieldRepo.deleteById(fieldCode);
+    }
+
+    @Override
+    public List<FieldDTO> getAllFields() {
+        return mapperUtil.mapFieldEntitiesToDtos(fieldRepo.findAll());
     }
 }
