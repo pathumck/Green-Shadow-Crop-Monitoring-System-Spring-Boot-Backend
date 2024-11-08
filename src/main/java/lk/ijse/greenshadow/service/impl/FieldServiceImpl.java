@@ -30,4 +30,12 @@ public class FieldServiceImpl implements FieldService {
         }
         fieldRepo.save(mapperUtil.mapFieldDtoToEntity(fieldDTO));
     }
+
+    @Override
+    public void deleteField(String fieldCode) {
+        if(!fieldRepo.existsById(fieldCode)) {
+            throw new RuntimeException("Field Does Not Exist");
+        }
+        fieldRepo.deleteById(fieldCode);
+    }
 }

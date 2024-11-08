@@ -54,4 +54,10 @@ public class FieldController {
             throw new RuntimeException(e);
         }
     }
+
+    @DeleteMapping("/{fieldCode}")
+    public ResponseUtil deleteField(@PathVariable("fieldCode") String fieldCode) {
+        fieldService.deleteField(fieldCode);
+        return new ResponseUtil("Success", "Field Deleted", null);
+    }
 }
