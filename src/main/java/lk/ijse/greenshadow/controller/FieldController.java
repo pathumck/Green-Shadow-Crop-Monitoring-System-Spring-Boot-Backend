@@ -18,7 +18,7 @@ public class FieldController {
     @Autowired
     FieldService fieldService;
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<ResponseUtil> saveField(@RequestPart("fieldCode") String fieldCode,
+    public ResponseEntity<Void> saveField(@RequestPart("fieldCode") String fieldCode,
                                     @RequestPart("name") String name,
                                     @RequestPart("location") String location,
                                     @RequestPart("size") String size,
@@ -31,14 +31,14 @@ public class FieldController {
             String imageTwoBase64 = AppUtil.imageToBase64(imageTwoBytes);
 
             fieldService.saveField(new FieldDTO(fieldCode, name, location, size, imageOneBase64, imageTwoBase64));
-            return new ResponseEntity<>(new ResponseUtil("Success", "Field Saved", null), HttpStatus.CREATED);
+            return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
     @PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<ResponseUtil> updateField(@RequestPart("fieldCode") String fieldCode,
+    public ResponseEntity<Void> updateField(@RequestPart("fieldCode") String fieldCode,
                                   @RequestPart("name") String name,
                                   @RequestPart("location") String location,
                                   @RequestPart("size") String size,
@@ -51,16 +51,16 @@ public class FieldController {
             String imageTwoBase64 = AppUtil.imageToBase64(imageTwoBytes);
 
             fieldService.updateField(new FieldDTO(fieldCode, name, location, size, imageOneBase64, imageTwoBase64));
-            return new ResponseEntity<>(new ResponseUtil("Success", "Field Updated", null), HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
     @DeleteMapping("/{fieldCode}")
-    public ResponseEntity<ResponseUtil> deleteField(@PathVariable("fieldCode") String fieldCode) {
+    public ResponseEntity<Void> deleteField(@PathVariable("fieldCode") String fieldCode) {
         fieldService.deleteField(fieldCode);
-        return new ResponseEntity<>(new ResponseUtil("Success", "Field Deleted", null), HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping
