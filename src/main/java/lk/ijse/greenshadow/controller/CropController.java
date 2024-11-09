@@ -49,4 +49,10 @@ public class CropController {
             throw new RuntimeException(e);
         }
     }
+
+    @DeleteMapping("/{cropCode}")
+    public ResponseEntity<Void> deleteCrop(@PathVariable("cropCode") String cropCode) {
+        cropService.deleteCrop(cropCode);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

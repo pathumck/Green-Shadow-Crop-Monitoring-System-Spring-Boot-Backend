@@ -32,4 +32,12 @@ public class CropServiceImpl implements CropService {
         }
         cropRepo.save(mapperUtil.mapCropDtoToEntity(cropDTO));
     }
+
+    @Override
+    public void deleteCrop(String cropCode) {
+        if (!cropRepo.existsById(cropCode)) {
+            throw new CropNotFoundException(cropCode + " : Crop Does Not Exist");
+        }
+        cropRepo.deleteById(cropCode);
+    }
 }
