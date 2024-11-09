@@ -1,6 +1,8 @@
 package lk.ijse.greenshadow.util;
 
+import lk.ijse.greenshadow.dto.CropDTO;
 import lk.ijse.greenshadow.dto.FieldDTO;
+import lk.ijse.greenshadow.entity.CropEntity;
 import lk.ijse.greenshadow.entity.FieldEntity;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -18,5 +20,9 @@ public class MapperUtil {
     }
     public List<FieldDTO> mapFieldEntitiesToDtos(List<FieldEntity> fieldEntities) {
         return modelMapper.map(fieldEntities, new TypeToken<List<FieldDTO>>() {}.getType());
+    }
+
+    public CropEntity mapCropDtoToEntity(CropDTO cropDTO) {
+        return modelMapper.map(cropDTO, CropEntity.class);
     }
 }

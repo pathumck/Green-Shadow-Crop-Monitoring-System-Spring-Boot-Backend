@@ -1,5 +1,6 @@
 package lk.ijse.greenshadow.advisor;
 
+import lk.ijse.greenshadow.exception.CropNotFoundException;
 import lk.ijse.greenshadow.exception.DataPersistException;
 import lk.ijse.greenshadow.exception.FieldNotFoundException;
 import lk.ijse.greenshadow.util.ResponseUtil;
@@ -21,6 +22,12 @@ public class AddWideExceptionHandler {
     @ExceptionHandler({DataPersistException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseUtil handleDataPersistException(DataPersistException e) {
+        return new ResponseUtil("Error", e.getMessage(), null);
+    }
+
+    @ExceptionHandler({CropNotFoundException.class})
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseUtil handleCropNotFoundException(CropNotFoundException e) {
         return new ResponseUtil("Error", e.getMessage(), null);
     }
 }
