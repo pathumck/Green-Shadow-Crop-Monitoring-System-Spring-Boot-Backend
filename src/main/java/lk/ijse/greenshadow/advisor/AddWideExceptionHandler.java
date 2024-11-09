@@ -30,4 +30,10 @@ public class AddWideExceptionHandler {
     public ResponseUtil handleCropNotFoundException(CropNotFoundException e) {
         return new ResponseUtil("Error", e.getMessage(), null);
     }
+
+    @ExceptionHandler({RuntimeException.class})
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ResponseUtil handleException(RuntimeException e) {
+        return new ResponseUtil("Error", e.getMessage(), null);
+    }
 }
