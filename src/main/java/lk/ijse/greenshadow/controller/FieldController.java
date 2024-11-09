@@ -1,5 +1,6 @@
 package lk.ijse.greenshadow.controller;
 
+import lk.ijse.greenshadow.dto.FieldCropDTO;
 import lk.ijse.greenshadow.dto.FieldDTO;
 import lk.ijse.greenshadow.service.FieldService;
 import lk.ijse.greenshadow.util.AppUtil;
@@ -66,5 +67,11 @@ public class FieldController {
     @GetMapping
     public ResponseUtil getAllFields() {
         return new ResponseUtil("Success", "Retrieved All Fields", fieldService.getAllFields());
+    }
+
+    @PostMapping("/fieldcrops")
+    public ResponseEntity<Void> saveFieldCrops(@RequestBody FieldCropDTO fieldCropDTO) {
+        fieldService.saveFieldCrops(fieldCropDTO);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

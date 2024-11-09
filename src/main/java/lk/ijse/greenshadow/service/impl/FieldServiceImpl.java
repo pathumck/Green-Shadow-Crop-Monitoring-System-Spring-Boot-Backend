@@ -1,8 +1,13 @@
 package lk.ijse.greenshadow.service.impl;
 
+import lk.ijse.greenshadow.dto.FieldCropDTO;
 import lk.ijse.greenshadow.dto.FieldDTO;
+import lk.ijse.greenshadow.entity.CropEntity;
+import lk.ijse.greenshadow.entity.FieldEntity;
+import lk.ijse.greenshadow.exception.CropNotFoundException;
 import lk.ijse.greenshadow.exception.DataPersistException;
 import lk.ijse.greenshadow.exception.FieldNotFoundException;
+import lk.ijse.greenshadow.repo.CropRepo;
 import lk.ijse.greenshadow.repo.FieldRepo;
 import lk.ijse.greenshadow.service.FieldService;
 import lk.ijse.greenshadow.util.MapperUtil;
@@ -11,12 +16,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
 public class FieldServiceImpl implements FieldService {
     @Autowired
     FieldRepo fieldRepo;
+    @Autowired
+    CropRepo cropRepo;
     @Autowired
     MapperUtil mapperUtil;
     @Override
@@ -46,5 +54,21 @@ public class FieldServiceImpl implements FieldService {
     @Override
     public List<FieldDTO> getAllFields() {
         return mapperUtil.mapFieldEntitiesToDtos(fieldRepo.findAll());
+    }
+
+    @Override
+    public void saveFieldCrops(FieldCropDTO fieldCropDTO) {
+        Optional<FieldEntity> fieldOpt = fieldRepo.findById(fieldCropDTO.getFieldCode());
+        Optional<CropEntity> cropOpt = cropRepo.findById(fieldCropDTO.getCropCode());
+        if(!fieldOpt.isPresent()) {
+            throw new FieldNotFoundException(fieldCropDTO.getFieldCode() + " : Field Does Not Exist");
+        } else if(!cropOpt.isPresent()) {
+            throw new CropNotFoundException(fieldCropDTO.getCropCode() + " : Crop Does Not Exist");
+        }
+        FieldEntity field = fieldOpt.get();
+        CropEntity crop = cropOpt.get();
+        field.getCrops().add(crop);
+        crop.getFields().add(field);
+        fieldRepo.save(field);
     }
 }
