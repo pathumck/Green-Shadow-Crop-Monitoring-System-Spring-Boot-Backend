@@ -32,10 +32,11 @@ public class FieldEntity {
             joinColumns = @JoinColumn(name = "field_id"),
             inverseJoinColumns = @JoinColumn(name = "log_id")
     )
+
     private List<LogEntity> logs;
 
     @ManyToMany(mappedBy = "fields", cascade = CascadeType.ALL)
-    List<StaffEntity> staffs;
+    private List<StaffEntity> staffs;
 
     @OneToMany(mappedBy = "field", cascade = CascadeType.ALL)
     private List<EquipmentEntity> equipment;
