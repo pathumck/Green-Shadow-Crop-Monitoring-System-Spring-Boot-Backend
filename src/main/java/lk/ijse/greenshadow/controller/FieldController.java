@@ -74,4 +74,10 @@ public class FieldController {
         fieldService.saveFieldCrops(fieldCropDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+    @DeleteMapping("/fieldcrops")
+    public ResponseEntity<Void> deleteFieldCrops(@RequestParam("fieldCode") String fieldCode, @RequestParam("cropCode") String cropCode) {
+        fieldService.deleteFieldCrops(fieldCode, cropCode);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

@@ -71,4 +71,20 @@ public class FieldServiceImpl implements FieldService {
         crop.getFields().add(field);
         fieldRepo.save(field);
     }
+
+    @Override
+    public void deleteFieldCrops(String fieldCode, String cropCode) {
+        Optional<FieldEntity> fieldOpt = fieldRepo.findById(fieldCode);
+        Optional<CropEntity> cropOpt = cropRepo.findById(cropCode);
+        if(!fieldOpt.isPresent()) {
+            throw new FieldNotFoundException(fieldCode + " : Field Does Not Exist");
+        } else if(!cropOpt.isPresent()) {
+            throw new CropNotFoundException(cropCode + " : Crop Does Not Exist");
+        }
+        FieldEntity field = fieldOpt.get();
+        CropEntity crop = cropOpt.get();
+        field.getCrops().remove(crop);
+        crop.getFields().remove(field);
+        fieldRepo.save(field);
+    }
 }
