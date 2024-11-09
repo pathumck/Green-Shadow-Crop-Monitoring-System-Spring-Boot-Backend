@@ -3,6 +3,7 @@ package lk.ijse.greenshadow.controller;
 import lk.ijse.greenshadow.dto.CropDTO;
 import lk.ijse.greenshadow.service.CropService;
 import lk.ijse.greenshadow.util.AppUtil;
+import lk.ijse.greenshadow.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -54,5 +55,10 @@ public class CropController {
     public ResponseEntity<Void> deleteCrop(@PathVariable("cropCode") String cropCode) {
         cropService.deleteCrop(cropCode);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping
+    public ResponseUtil getAllCrops() {
+        return new ResponseUtil("Success", "Retrieved All Crops", cropService.getAllCrops());
     }
 }

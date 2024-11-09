@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class CropServiceImpl implements CropService {
@@ -39,5 +41,10 @@ public class CropServiceImpl implements CropService {
             throw new CropNotFoundException(cropCode + " : Crop Does Not Exist");
         }
         cropRepo.deleteById(cropCode);
+    }
+
+    @Override
+    public List<CropDTO> getAllCrops() {
+        return mapperUtil.mapCropEntitiesToDtos(cropRepo.findAll());
     }
 }
