@@ -1,5 +1,7 @@
 package lk.ijse.greenshadow.advisor;
 
+import lk.ijse.greenshadow.exception.DataPersistException;
+import lk.ijse.greenshadow.exception.FieldNotFoundException;
 import lk.ijse.greenshadow.util.ResponseUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -10,9 +12,15 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 @CrossOrigin
 public class AddWideExceptionHandler {
-    @ExceptionHandler({RuntimeException.class})
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ResponseUtil handleException(RuntimeException e){
+    @ExceptionHandler({FieldNotFoundException.class})
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseUtil handleFieldNotFoundException(FieldNotFoundException e) {
+        return new ResponseUtil("Error", e.getMessage(), null);
+    }
+
+    @ExceptionHandler({DataPersistException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseUtil handleDataPersistException(DataPersistException e) {
         return new ResponseUtil("Error", e.getMessage(), null);
     }
 }

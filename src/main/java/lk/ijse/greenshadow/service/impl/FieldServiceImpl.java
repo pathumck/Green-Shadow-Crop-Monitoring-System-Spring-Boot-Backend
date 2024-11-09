@@ -1,6 +1,8 @@
 package lk.ijse.greenshadow.service.impl;
 
 import lk.ijse.greenshadow.dto.FieldDTO;
+import lk.ijse.greenshadow.exception.DataPersistException;
+import lk.ijse.greenshadow.exception.FieldNotFoundException;
 import lk.ijse.greenshadow.repo.FieldRepo;
 import lk.ijse.greenshadow.service.FieldService;
 import lk.ijse.greenshadow.util.MapperUtil;
@@ -20,7 +22,7 @@ public class FieldServiceImpl implements FieldService {
     @Override
     public void saveField(FieldDTO fieldDTO) {
         if(fieldRepo.existsById(fieldDTO.getFieldCode())) {
-            throw new RuntimeException("Field Already Exist");
+            throw new DataPersistException(fieldDTO.getFieldCode() + " : Field Already Exist");
         }
         fieldRepo.save(mapperUtil.mapFieldDtoToEntity(fieldDTO));
     }
@@ -28,7 +30,7 @@ public class FieldServiceImpl implements FieldService {
     @Override
     public void updateField(FieldDTO fieldDTO) {
         if(!fieldRepo.existsById(fieldDTO.getFieldCode())) {
-            throw new RuntimeException("Field Does Not Exist");
+            throw new FieldNotFoundException(fieldDTO.getFieldCode() + " : Field Does Not Exist");
         }
         fieldRepo.save(mapperUtil.mapFieldDtoToEntity(fieldDTO));
     }
@@ -36,7 +38,7 @@ public class FieldServiceImpl implements FieldService {
     @Override
     public void deleteField(String fieldCode) {
         if(!fieldRepo.existsById(fieldCode)) {
-            throw new RuntimeException("Field Does Not Exist");
+            throw new FieldNotFoundException(fieldCode + " : Field Does Not Exist");
         }
         fieldRepo.deleteById(fieldCode);
     }
