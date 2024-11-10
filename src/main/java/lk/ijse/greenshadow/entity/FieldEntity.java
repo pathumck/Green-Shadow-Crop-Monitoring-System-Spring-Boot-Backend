@@ -26,13 +26,7 @@ public class FieldEntity {
     @ManyToMany(mappedBy = "fields", cascade = CascadeType.ALL)
     private List<CropEntity> crops;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "log_field",
-            joinColumns = @JoinColumn(name = "field_id"),
-            inverseJoinColumns = @JoinColumn(name = "log_id")
-    )
-
+    @ManyToMany(mappedBy = "fields", cascade = CascadeType.ALL)
     private List<LogEntity> logs;
 
     @ManyToMany(mappedBy = "fields", cascade = CascadeType.ALL)

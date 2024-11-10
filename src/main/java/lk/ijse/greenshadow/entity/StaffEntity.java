@@ -31,12 +31,7 @@ public class StaffEntity {
     @Enumerated(EnumType.STRING)
     private StaffRole role;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "log_staff",
-            joinColumns = @JoinColumn(name = "staff_id"),
-            inverseJoinColumns = @JoinColumn(name = "log_id")
-    )
+    @ManyToMany(mappedBy = "staffs", cascade = CascadeType.ALL)
     private List<LogEntity> logs;
 
     @ManyToMany(cascade = CascadeType.ALL)
