@@ -3,6 +3,7 @@ package lk.ijse.greenshadow.advisor;
 import lk.ijse.greenshadow.exception.CropNotFoundException;
 import lk.ijse.greenshadow.exception.DataPersistException;
 import lk.ijse.greenshadow.exception.FieldNotFoundException;
+import lk.ijse.greenshadow.exception.LogNotFoundException;
 import lk.ijse.greenshadow.util.ResponseUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -28,6 +29,12 @@ public class AddWideExceptionHandler {
     @ExceptionHandler({CropNotFoundException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseUtil handleCropNotFoundException(CropNotFoundException e) {
+        return new ResponseUtil("Error", e.getMessage(), null);
+    }
+
+    @ExceptionHandler({LogNotFoundException.class})
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseUtil handleLogNotFoundException(LogNotFoundException e) {
         return new ResponseUtil("Error", e.getMessage(), null);
     }
 

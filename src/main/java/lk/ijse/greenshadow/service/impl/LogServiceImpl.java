@@ -10,6 +10,7 @@ import lk.ijse.greenshadow.entity.FieldEntity;
 import lk.ijse.greenshadow.entity.LogEntity;
 import lk.ijse.greenshadow.entity.StaffEntity;
 import lk.ijse.greenshadow.exception.DataPersistException;
+import lk.ijse.greenshadow.exception.LogNotFoundException;
 import lk.ijse.greenshadow.repo.CropRepo;
 import lk.ijse.greenshadow.repo.FieldRepo;
 import lk.ijse.greenshadow.repo.LogRepo;
@@ -71,5 +72,13 @@ public class LogServiceImpl implements LogService {
     @Override
     public List<LogDTO> getAllLogs() {
         return mapperUtil.mapLogEntitiesToDtos(logRepo.findAll());
+    }
+
+    @Override
+    public void deleteLog(String logCode) {
+        if (!logRepo.existsById(logCode)) {
+            throw new LogNotFoundException(logCode + " : Log Does Not Exist");
+        }
+        logRepo.deleteById(logCode);
     }
 }
