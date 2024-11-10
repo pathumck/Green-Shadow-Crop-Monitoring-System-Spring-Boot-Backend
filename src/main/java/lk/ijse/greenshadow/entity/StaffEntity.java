@@ -28,13 +28,14 @@ public class StaffEntity {
     private String addressLine5;
     private String email;
     private String designation;
+
     @Enumerated(EnumType.STRING)
     private StaffRole role;
 
-    @ManyToMany(mappedBy = "staffs", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "staffs", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<LogEntity> logs;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "field_staff",
             joinColumns = @JoinColumn(name = "staff_id"),

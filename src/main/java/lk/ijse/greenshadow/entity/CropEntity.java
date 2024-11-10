@@ -19,10 +19,11 @@ public class CropEntity {
     private String scientificName;
     private String category;
     private String season;
+
     @Column(columnDefinition = "LONGTEXT")
     private String image;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "field_crop",
             joinColumns = @JoinColumn(name = "crop_id"),
@@ -30,6 +31,6 @@ public class CropEntity {
     )
     private List<FieldEntity> fields;
 
-    @ManyToMany(mappedBy = "crops", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "crops", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<LogEntity> logs;
 }
