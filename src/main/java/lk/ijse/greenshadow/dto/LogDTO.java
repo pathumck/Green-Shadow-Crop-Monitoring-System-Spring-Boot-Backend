@@ -14,7 +14,7 @@ public class LogDTO {
     private String date;
     private String details;
     private String image;
-    private List<String> logFields;
-    private List<String> logCrops;
-    private List<String> logStaff;
+    private List<FieldDTO> logFields;
+    private List<CropDTO> logCrops;
+    private List<StaffDTO> logStaff;
 }

@@ -35,4 +35,8 @@ public class MapperUtil {
     public LogEntity mapLogDtoToEntity(LogDTO logDTO) {
         return modelMapper.map(logDTO, LogEntity.class);
     }
+
+    public List<LogDTO> mapLogEntitiesToDtos(List<LogEntity> logEntities) {
+        return modelMapper.map(logEntities, new TypeToken<List<LogDTO>>() {}.getType());
+    }
 }
