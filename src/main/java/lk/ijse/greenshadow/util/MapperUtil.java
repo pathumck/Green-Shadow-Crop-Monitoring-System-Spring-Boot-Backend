@@ -2,8 +2,10 @@ package lk.ijse.greenshadow.util;
 
 import lk.ijse.greenshadow.dto.CropDTO;
 import lk.ijse.greenshadow.dto.FieldDTO;
+import lk.ijse.greenshadow.dto.LogDTO;
 import lk.ijse.greenshadow.entity.CropEntity;
 import lk.ijse.greenshadow.entity.FieldEntity;
+import lk.ijse.greenshadow.entity.LogEntity;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,5 +30,9 @@ public class MapperUtil {
 
     public List<CropDTO> mapCropEntitiesToDtos(List<CropEntity> cropEntities) {
         return modelMapper.map(cropEntities, new TypeToken<List<CropDTO>>() {}.getType());
+    }
+
+    public LogEntity mapLogDtoToEntity(LogDTO logDTO) {
+        return modelMapper.map(logDTO, LogEntity.class);
     }
 }
