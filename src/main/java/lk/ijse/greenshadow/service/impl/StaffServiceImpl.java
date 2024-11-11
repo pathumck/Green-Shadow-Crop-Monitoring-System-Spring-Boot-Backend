@@ -10,6 +10,8 @@ import lk.ijse.greenshadow.util.MapperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class StaffServiceImpl implements StaffService {
@@ -31,5 +33,18 @@ public class StaffServiceImpl implements StaffService {
            throw new StaffNotFoundException(staffDTO.getStaffId() + " : Staff Does Not Exist");
         }
         staffRepo.save(mapperUtil.mapStaffDtoToEntity(staffDTO));
+    }
+
+    @Override
+    public void deleteStaff(String staffId) {
+        if (!staffRepo.existsById(staffId)) {
+            throw new StaffNotFoundException(staffId + " : Staff Does Not Exist");
+        }
+        staffRepo.deleteById(staffId);
+    }
+
+    @Override
+    public List<StaffDTO> getAllStaffs() {
+        return mapperUtil.mapStaffEntitiesToDtos(staffRepo.findAll());
     }
 }

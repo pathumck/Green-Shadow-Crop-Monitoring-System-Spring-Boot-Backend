@@ -45,4 +45,8 @@ public class MapperUtil {
     public StaffEntity mapStaffDtoToEntity(StaffDTO staffDTO) {
         return modelMapper.map(staffDTO, StaffEntity.class);
     }
+
+    public List<StaffDTO> mapStaffEntitiesToDtos(List<StaffEntity> staffEntities) {
+        return modelMapper.map(staffEntities, new TypeToken<List<StaffDTO>>() {}.getType());
+    }
 }
