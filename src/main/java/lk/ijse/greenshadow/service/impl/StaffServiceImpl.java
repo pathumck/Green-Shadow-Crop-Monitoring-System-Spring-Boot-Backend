@@ -3,6 +3,7 @@ package lk.ijse.greenshadow.service.impl;
 import jakarta.transaction.Transactional;
 import lk.ijse.greenshadow.dto.StaffDTO;
 import lk.ijse.greenshadow.exception.DataPersistException;
+import lk.ijse.greenshadow.exception.StaffNotFoundException;
 import lk.ijse.greenshadow.repo.StaffRepo;
 import lk.ijse.greenshadow.service.StaffService;
 import lk.ijse.greenshadow.util.MapperUtil;
@@ -20,6 +21,14 @@ public class StaffServiceImpl implements StaffService {
     public void saveStaff(StaffDTO staffDTO) {
         if (staffRepo.existsById(staffDTO.getStaffId())) {
             throw new DataPersistException(staffDTO.getStaffId() + " : Staff Already Exist");
+        }
+        staffRepo.save(mapperUtil.mapStaffDtoToEntity(staffDTO));
+    }
+
+    @Override
+    public void updateStaff(StaffDTO staffDTO) {
+        if (!staffRepo.existsById(staffDTO.getStaffId())) {
+           throw new StaffNotFoundException(staffDTO.getStaffId() + " : Staff Does Not Exist");
         }
         staffRepo.save(mapperUtil.mapStaffDtoToEntity(staffDTO));
     }

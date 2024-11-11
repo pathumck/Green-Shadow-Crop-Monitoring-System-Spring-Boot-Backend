@@ -19,4 +19,10 @@ public class StaffController {
         staffService.saveStaff(staffDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> updateStaff(@RequestBody StaffDTO staffDTO) {
+        staffService.updateStaff(staffDTO);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }
