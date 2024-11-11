@@ -1,22 +1,36 @@
 package lk.ijse.greenshadow.service.impl;
 
 import jakarta.transaction.Transactional;
+import lk.ijse.greenshadow.dto.FieldStaffDTO;
 import lk.ijse.greenshadow.dto.StaffDTO;
+import lk.ijse.greenshadow.entity.CropEntity;
+import lk.ijse.greenshadow.entity.FieldEntity;
+import lk.ijse.greenshadow.entity.StaffEntity;
+import lk.ijse.greenshadow.exception.CropNotFoundException;
 import lk.ijse.greenshadow.exception.DataPersistException;
+import lk.ijse.greenshadow.exception.FieldNotFoundException;
 import lk.ijse.greenshadow.exception.StaffNotFoundException;
+import lk.ijse.greenshadow.repo.FieldRepo;
 import lk.ijse.greenshadow.repo.StaffRepo;
 import lk.ijse.greenshadow.service.StaffService;
 import lk.ijse.greenshadow.util.MapperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
 public class StaffServiceImpl implements StaffService {
     @Autowired
     private StaffRepo staffRepo;
+    @Autowired
+    private FieldRepo fieldRepo;
     @Autowired
     private MapperUtil mapperUtil;
     @Override
@@ -46,5 +60,24 @@ public class StaffServiceImpl implements StaffService {
     @Override
     public List<StaffDTO> getAllStaffs() {
         return mapperUtil.mapStaffEntitiesToDtos(staffRepo.findAll());
+    }
+
+    @Override
+    public void saveFieldStaff(FieldStaffDTO fieldStaffDTO) {
+        Optional<FieldEntity> fieldOpt = fieldRepo.findById(fieldStaffDTO.getFieldCode());
+        Optional<StaffEntity> staffOpt = staffRepo.findById(fieldStaffDTO.getStaffId());
+        if(!fieldOpt.isPresent()) {
+            throw new FieldNotFoundException(fieldStaffDTO.getFieldCode() + " : Field Does Not Exist");
+        } else if(!staffOpt.isPresent()) {
+            throw new StaffNotFoundException(fieldStaffDTO.getStaffId() + " : Staff Does Not Exist");
+        }
+        FieldEntity field = fieldOpt.get();
+        StaffEntity staff = staffOpt.get();
+        if (field.getStaffs().contains(staff)) {
+            throw new DataPersistException(fieldStaffDTO.getFieldCode() + " : Field Already Have This Staff : " + fieldStaffDTO.getStaffId());
+        }
+        field.getStaffs().add(staff);
+        staff.getFields().add(field);
+        fieldRepo.save(field);
     }
 }

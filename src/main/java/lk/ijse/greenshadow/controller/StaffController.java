@@ -1,5 +1,6 @@
 package lk.ijse.greenshadow.controller;
 
+import lk.ijse.greenshadow.dto.FieldStaffDTO;
 import lk.ijse.greenshadow.dto.StaffDTO;
 import lk.ijse.greenshadow.service.StaffService;
 import lk.ijse.greenshadow.util.ResponseUtil;
@@ -36,5 +37,11 @@ public class StaffController {
     @GetMapping
     public ResponseUtil getAllStaffs() {
         return new ResponseUtil("Success", "Retrieved All Staffs", staffService.getAllStaffs());
+    }
+
+    @PostMapping(value = "/fieldstaff", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> saveFieldStaff(@RequestBody FieldStaffDTO fieldStaffDTO) {
+        staffService.saveFieldStaff(fieldStaffDTO);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }
