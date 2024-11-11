@@ -67,6 +67,9 @@ public class FieldServiceImpl implements FieldService {
         }
         FieldEntity field = fieldOpt.get();
         CropEntity crop = cropOpt.get();
+        if (field.getCrops().contains(crop)) {
+            throw new DataPersistException(fieldCropDTO.getFieldCode() + " : Field Already Have This Crop : " + fieldCropDTO.getCropCode());
+        }
         field.getCrops().add(crop);
         crop.getFields().add(field);
         fieldRepo.save(field);

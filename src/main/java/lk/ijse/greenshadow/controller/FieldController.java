@@ -69,7 +69,7 @@ public class FieldController {
         return new ResponseUtil("Success", "Retrieved All Fields", fieldService.getAllFields());
     }
 
-    @PostMapping("/fieldcrops")
+    @PostMapping(value = "/fieldcrops" , consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> saveFieldCrops(@RequestBody FieldCropDTO fieldCropDTO) {
         fieldService.saveFieldCrops(fieldCropDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
