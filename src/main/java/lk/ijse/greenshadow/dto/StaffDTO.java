@@ -9,4 +9,17 @@ import lombok.NoArgsConstructor;
 @Data
 public class StaffDTO {
     private String staffId;
+    private String firstName;
+    private String lastName;
+    private String birthDate;
+    private String joinDate;
+    private String phone;
+    private String addressLine1;
+    private String addressLine2;
+    private String addressLine3;
+    private String addressLine4;
+    private String addressLine5;
+    private String email;
+    private String designation;
+    private String role;
 }
