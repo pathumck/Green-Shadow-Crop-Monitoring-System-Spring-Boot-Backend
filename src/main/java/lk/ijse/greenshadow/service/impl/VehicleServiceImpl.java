@@ -55,4 +55,9 @@ public class VehicleServiceImpl implements VehicleService {
     public List<VehicleDTO> getAllVehicles() {
         return mapperUtil.mapVehicleEntitiesToDtos(vehicleRepo.findAll());
     }
+
+    @Override
+    public String findLastVehicleCode() {
+        return vehicleRepo.findLastVehicleCode();
+    }
 }

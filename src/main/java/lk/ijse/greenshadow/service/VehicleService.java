@@ -9,4 +9,5 @@ public interface VehicleService {
     void updateVehicle(VehicleDTO vehicleDTO);
     void deleteVehicle(String vehicleCode);
     List<VehicleDTO> getAllVehicles();
+    String findLastVehicleCode();
 }
