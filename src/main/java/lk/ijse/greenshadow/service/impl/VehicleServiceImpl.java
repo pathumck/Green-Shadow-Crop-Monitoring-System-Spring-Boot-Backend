@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import lk.ijse.greenshadow.dto.VehicleDTO;
 import lk.ijse.greenshadow.exception.DataPersistException;
 import lk.ijse.greenshadow.exception.StaffNotFoundException;
+import lk.ijse.greenshadow.exception.VehicleNotFoundException;
 import lk.ijse.greenshadow.repo.StaffRepo;
 import lk.ijse.greenshadow.repo.VehicleRepo;
 import lk.ijse.greenshadow.service.VehicleService;
@@ -24,6 +25,16 @@ public class VehicleServiceImpl implements VehicleService {
     public void saveVehicle(VehicleDTO vehicleDTO) {
         if (vehicleRepo.existsById(vehicleDTO.getVehicleCode())) {
             throw new DataPersistException(vehicleDTO.getVehicleCode() + " : Vehicle Already Exist");
+        } else if (!staffRepo.existsById(vehicleDTO.getStaffId())) {
+            throw new StaffNotFoundException(vehicleDTO.getStaffId() + " : Staff Does Not Exist");
+        }
+        vehicleRepo.save(mapperUtil.mapVehicleDtoToEntity(vehicleDTO));
+    }
+
+    @Override
+    public void updateVehicle(VehicleDTO vehicleDTO) {
+        if (!vehicleRepo.existsById(vehicleDTO.getVehicleCode())) {
+            throw new VehicleNotFoundException(vehicleDTO.getVehicleCode() + " : Vehicle Does Not Exist");
         } else if (!staffRepo.existsById(vehicleDTO.getStaffId())) {
             throw new StaffNotFoundException(vehicleDTO.getStaffId() + " : Staff Does Not Exist");
         }

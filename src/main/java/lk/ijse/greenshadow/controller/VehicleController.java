@@ -19,4 +19,10 @@ public class VehicleController {
         vehicleService.saveVehicle(vehicleDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> updateVehicle(@RequestBody VehicleDTO vehicleDTO) {
+        vehicleService.updateVehicle(vehicleDTO);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }
