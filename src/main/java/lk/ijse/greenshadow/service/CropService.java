@@ -9,4 +9,5 @@ public interface CropService {
     void updateFieldCrops(CropDTO cropDTO);
     void deleteCrop(String cropCode);
     List<CropDTO> getAllCrops();
+    String findLastCropCode();
 }

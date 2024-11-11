@@ -80,4 +80,10 @@ public class FieldController {
         fieldService.deleteFieldCrops(fieldCode, cropCode);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @GetMapping("/nextcode")
+    public ResponseUtil getNewFieldCode() {
+        String newFieldCode = AppUtil.generateFieldCode(fieldService.findLastFieldCode());
+        return new ResponseUtil("Success", "Retrieved New Field Code", newFieldCode);
+    }
 }

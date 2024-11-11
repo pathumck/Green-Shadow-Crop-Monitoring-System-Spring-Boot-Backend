@@ -87,4 +87,9 @@ public class FieldServiceImpl implements FieldService {
         crop.getFields().remove(field);
         fieldRepo.save(field);
     }
+
+    @Override
+    public String findLastFieldCode() {
+        return fieldRepo.getLastFieldCode();
+    }
 }

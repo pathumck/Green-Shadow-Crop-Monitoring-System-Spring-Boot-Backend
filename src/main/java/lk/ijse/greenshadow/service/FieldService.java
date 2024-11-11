@@ -12,4 +12,5 @@ public interface FieldService {
     List<FieldDTO> getAllFields();
     void saveFieldCrops(FieldCropDTO fieldCropDTO);
     void deleteFieldCrops(String fieldCode, String cropCode);
+    String findLastFieldCode();
 }
