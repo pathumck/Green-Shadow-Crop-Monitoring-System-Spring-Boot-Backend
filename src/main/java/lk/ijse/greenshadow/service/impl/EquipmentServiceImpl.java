@@ -13,6 +13,8 @@ import lk.ijse.greenshadow.repo.EquipmentRepo;
 import lk.ijse.greenshadow.repo.FieldRepo;
 import lk.ijse.greenshadow.repo.StaffRepo;
 import lk.ijse.greenshadow.service.EquipmentService;
+import lk.ijse.greenshadow.util.AppUtil;
+import lk.ijse.greenshadow.util.MapperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,19 +29,21 @@ public class EquipmentServiceImpl implements EquipmentService {
     private StaffRepo staffRepo;
     @Autowired
     private FieldRepo fieldRepo;
+    @Autowired
+    private MapperUtil mapperUtil;
     @Override
     public void saveEquipment(EquipmentDTO equipmentDTO) {
         if (equipmentRepo.existsById(equipmentDTO.getEquipmentId())) {
             throw new DataPersistException(equipmentDTO.getEquipmentId() + " : Equipment Already Exist");
         }
         Optional<StaffEntity> staff = staffRepo.findById(equipmentDTO.getStaffId());
-        Optional<FieldEntity> field = fieldRepo.findById(equipmentDTO.getFieldId());
+        Optional<FieldEntity> field = fieldRepo.findById(equipmentDTO.getFieldCode());
         if (!staff.isPresent()) {
             throw new StaffNotFoundException(equipmentDTO.getStaffId() + " : Staff Does Not Exist");
         } else if (!field.isPresent()) {
-            throw new FieldNotFoundException(equipmentDTO.getFieldId() + " : Field Does Not Exist");
+            throw new FieldNotFoundException(equipmentDTO.getFieldCode() + " : Field Does Not Exist");
         }
-        equipmentRepo.save(new EquipmentEntity(equipmentDTO.getEquipmentId(), equipmentDTO.getName(), equipmentDTO.getType(), equipmentDTO.getStatus(), staff.get(), field.get()));
+        equipmentRepo.save(mapperUtil.mapEquipmentDtoToEntity(equipmentDTO));
     }
 
     @Override
@@ -48,13 +52,13 @@ public class EquipmentServiceImpl implements EquipmentService {
             throw new EquipmentNotFoundException(equipmentDTO.getEquipmentId() + " : Equipment Does Not Exist");
         }
         Optional<StaffEntity> staff = staffRepo.findById(equipmentDTO.getStaffId());
-        Optional<FieldEntity> field = fieldRepo.findById(equipmentDTO.getFieldId());
+        Optional<FieldEntity> field = fieldRepo.findById(equipmentDTO.getFieldCode());
         if (!staff.isPresent()) {
             throw new StaffNotFoundException(equipmentDTO.getStaffId() + " : Staff Does Not Exist");
         } else if (!field.isPresent()) {
-            throw new FieldNotFoundException(equipmentDTO.getFieldId() + " : Field Does Not Exist");
+            throw new FieldNotFoundException(equipmentDTO.getFieldCode() + " : Field Does Not Exist");
         }
-        equipmentRepo.save(new EquipmentEntity(equipmentDTO.getEquipmentId(), equipmentDTO.getName(), equipmentDTO.getType(), equipmentDTO.getStatus(), staff.get(), field.get()));
+        equipmentRepo.save(mapperUtil.mapEquipmentDtoToEntity(equipmentDTO));
     }
 
     @Override

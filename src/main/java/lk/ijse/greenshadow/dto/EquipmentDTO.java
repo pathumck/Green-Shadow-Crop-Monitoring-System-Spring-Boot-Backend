@@ -13,5 +13,5 @@ public class EquipmentDTO {
     private String type;
     private String status;
     private String staffId;
-    private String fieldId;
+    private String fieldCode;
 }
