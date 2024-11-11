@@ -19,7 +19,7 @@ public class StaffEntity {
     private String firstName;
     private String lastName;
     private Date birthDate;
-    private String joinDate;
+    private Date joinDate;
     private String phone;
     private String addressLine1;
     private String addressLine2;
