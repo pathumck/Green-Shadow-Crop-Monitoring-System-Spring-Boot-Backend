@@ -52,7 +52,7 @@ public class StaffController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/newstaffid")
+    @GetMapping("/newid")
     public ResponseUtil getNewStaffId() {
         return new ResponseUtil("Success", "Retrieved New Staff Id", AppUtil.generateStaffId(staffService.findLastStaffId()));
     }
