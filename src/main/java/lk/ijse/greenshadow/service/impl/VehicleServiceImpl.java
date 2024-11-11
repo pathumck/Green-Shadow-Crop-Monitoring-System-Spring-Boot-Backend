@@ -40,4 +40,12 @@ public class VehicleServiceImpl implements VehicleService {
         }
         vehicleRepo.save(mapperUtil.mapVehicleDtoToEntity(vehicleDTO));
     }
+
+    @Override
+    public void deleteVehicle(String vehicleCode) {
+        if (!vehicleRepo.existsById(vehicleCode)) {
+            throw new VehicleNotFoundException(vehicleCode + " : Vehicle Does Not Exist");
+        }
+        vehicleRepo.deleteById(vehicleCode);
+    }
 }

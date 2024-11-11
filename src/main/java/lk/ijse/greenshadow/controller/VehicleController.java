@@ -25,4 +25,10 @@ public class VehicleController {
         vehicleService.updateVehicle(vehicleDTO);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @DeleteMapping("/{vehicleCode}")
+    public ResponseEntity<Void> deleteVehicle(@PathVariable String vehicleCode) {
+        vehicleService.deleteVehicle(vehicleCode);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }
