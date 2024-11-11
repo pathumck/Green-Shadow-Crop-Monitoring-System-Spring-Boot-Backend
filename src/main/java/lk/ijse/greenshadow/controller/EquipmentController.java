@@ -19,4 +19,16 @@ public class EquipmentController {
         equipmentService.saveEquipment(equipmentDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> updateEquipment(@RequestBody EquipmentDTO equipmentDTO) {
+        equipmentService.updateEquipment(equipmentDTO);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @DeleteMapping({"/{equipmentId}"})
+    public ResponseEntity<Void> deleteEquipment(@PathVariable("equipmentId") String equipmentId) {
+        equipmentService.deleteEquipment(equipmentId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

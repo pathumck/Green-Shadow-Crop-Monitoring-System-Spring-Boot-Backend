@@ -41,6 +41,12 @@ public class AddWideExceptionHandler {
         return new ResponseUtil("Error", e.getMessage(), null);
     }
 
+    @ExceptionHandler({EquipmentNotFoundException.class})
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseUtil handleEquipmentNotFoundException(EquipmentNotFoundException e) {
+        return new ResponseUtil("Error", e.getMessage(), null);
+    }
+
     @ExceptionHandler({RuntimeException.class})
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseUtil handleException(RuntimeException e) {
