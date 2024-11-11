@@ -3,10 +3,8 @@ package lk.ijse.greenshadow.service.impl;
 import jakarta.transaction.Transactional;
 import lk.ijse.greenshadow.dto.FieldStaffDTO;
 import lk.ijse.greenshadow.dto.StaffDTO;
-import lk.ijse.greenshadow.entity.CropEntity;
 import lk.ijse.greenshadow.entity.FieldEntity;
 import lk.ijse.greenshadow.entity.StaffEntity;
-import lk.ijse.greenshadow.exception.CropNotFoundException;
 import lk.ijse.greenshadow.exception.DataPersistException;
 import lk.ijse.greenshadow.exception.FieldNotFoundException;
 import lk.ijse.greenshadow.exception.StaffNotFoundException;
@@ -15,12 +13,8 @@ import lk.ijse.greenshadow.repo.StaffRepo;
 import lk.ijse.greenshadow.service.StaffService;
 import lk.ijse.greenshadow.util.MapperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.Optional;
 
@@ -79,5 +73,26 @@ public class StaffServiceImpl implements StaffService {
         field.getStaffs().add(staff);
         staff.getFields().add(field);
         fieldRepo.save(field);
+    }
+
+    @Override
+    public void deleteFieldStaff(String fieldCode, String staffId) {
+        Optional<FieldEntity> fieldOpt = fieldRepo.findById(fieldCode);
+        Optional<StaffEntity> staffOpt = staffRepo.findById(staffId);
+        if(!fieldOpt.isPresent()) {
+            throw new FieldNotFoundException(fieldCode + " : Field Does Not Exist");
+        } else if(!staffOpt.isPresent()) {
+            throw new StaffNotFoundException(staffId + " : Staff Does Not Exist");
+        }
+        FieldEntity field = fieldOpt.get();
+        StaffEntity staff = staffOpt.get();
+        field.getStaffs().remove(staff);
+        staff.getFields().remove(field);
+        fieldRepo.save(field);
+    }
+
+    @Override
+    public String findLastStaffId() {
+        return staffRepo.findLastStaffId();
     }
 }

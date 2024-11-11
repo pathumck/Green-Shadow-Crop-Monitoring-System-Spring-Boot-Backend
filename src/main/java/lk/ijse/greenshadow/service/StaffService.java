@@ -11,4 +11,6 @@ public interface StaffService {
     void deleteStaff(String staffId);
     List<StaffDTO> getAllStaffs();
     void saveFieldStaff(FieldStaffDTO fieldStaffDTO);
+    void deleteFieldStaff(String fieldCode, String staffId);
+    String findLastStaffId();
 }

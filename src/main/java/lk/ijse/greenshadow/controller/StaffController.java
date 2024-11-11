@@ -3,6 +3,7 @@ package lk.ijse.greenshadow.controller;
 import lk.ijse.greenshadow.dto.FieldStaffDTO;
 import lk.ijse.greenshadow.dto.StaffDTO;
 import lk.ijse.greenshadow.service.StaffService;
+import lk.ijse.greenshadow.util.AppUtil;
 import lk.ijse.greenshadow.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,5 +44,16 @@ public class StaffController {
     public ResponseEntity<Void> saveFieldStaff(@RequestBody FieldStaffDTO fieldStaffDTO) {
         staffService.saveFieldStaff(fieldStaffDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/fieldstaff")
+    public ResponseEntity<Void> deleteFieldStaff(@RequestParam("fieldCode") String fieldCode, @RequestParam("staffId") String staffId) {
+        staffService.deleteFieldStaff(fieldCode, staffId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/newstaffid")
+    public ResponseUtil getNewStaffId() {
+        return new ResponseUtil("Success", "Retrieved New Staff Id", AppUtil.generateStaffId(staffService.findLastStaffId()));
     }
 }
