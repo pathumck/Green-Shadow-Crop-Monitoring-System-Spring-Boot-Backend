@@ -2,6 +2,7 @@ package lk.ijse.greenshadow.controller;
 
 import lk.ijse.greenshadow.dto.VehicleDTO;
 import lk.ijse.greenshadow.service.VehicleService;
+import lk.ijse.greenshadow.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -30,5 +31,10 @@ public class VehicleController {
     public ResponseEntity<Void> deleteVehicle(@PathVariable String vehicleCode) {
         vehicleService.deleteVehicle(vehicleCode);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping
+    public ResponseUtil getAllVehicles() {
+        return new ResponseUtil("Success", "Retrieved All Vehicles", vehicleService.getAllVehicles());
     }
 }

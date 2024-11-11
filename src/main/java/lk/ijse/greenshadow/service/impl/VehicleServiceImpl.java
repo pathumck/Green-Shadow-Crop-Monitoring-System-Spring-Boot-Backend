@@ -12,6 +12,8 @@ import lk.ijse.greenshadow.util.MapperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class VehicleServiceImpl implements VehicleService {
@@ -47,5 +49,10 @@ public class VehicleServiceImpl implements VehicleService {
             throw new VehicleNotFoundException(vehicleCode + " : Vehicle Does Not Exist");
         }
         vehicleRepo.deleteById(vehicleCode);
+    }
+
+    @Override
+    public List<VehicleDTO> getAllVehicles() {
+        return mapperUtil.mapVehicleEntitiesToDtos(vehicleRepo.findAll());
     }
 }
