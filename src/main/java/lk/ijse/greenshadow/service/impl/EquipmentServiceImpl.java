@@ -64,4 +64,9 @@ public class EquipmentServiceImpl implements EquipmentService {
         }
         equipmentRepo.deleteById(equipmentId);
     }
+
+    @Override
+    public String findLastEquipmentId() {
+        return equipmentRepo.findLastEquipmentId();
+    }
 }

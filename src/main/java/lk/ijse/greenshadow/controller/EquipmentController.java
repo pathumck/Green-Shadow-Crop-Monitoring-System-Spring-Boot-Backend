@@ -2,6 +2,8 @@ package lk.ijse.greenshadow.controller;
 
 import lk.ijse.greenshadow.dto.EquipmentDTO;
 import lk.ijse.greenshadow.service.EquipmentService;
+import lk.ijse.greenshadow.util.AppUtil;
+import lk.ijse.greenshadow.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -30,5 +32,10 @@ public class EquipmentController {
     public ResponseEntity<Void> deleteEquipment(@PathVariable("equipmentId") String equipmentId) {
         equipmentService.deleteEquipment(equipmentId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/newid")
+    public ResponseUtil getNewEquipmentId() {
+        return new ResponseUtil("Success", "Retrieved New Equipment Id", AppUtil.generateEquipmentId(equipmentService.findLastEquipmentId()));
     }
 }

@@ -6,4 +6,5 @@ public interface EquipmentService {
     void saveEquipment(EquipmentDTO equipmentDTO);
     void updateEquipment(EquipmentDTO equipmentDTO);
     void deleteEquipment(String equipmentId);
+    String findLastEquipmentId();
 }
