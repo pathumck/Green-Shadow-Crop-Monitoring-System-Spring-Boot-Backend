@@ -18,6 +18,7 @@ import lk.ijse.greenshadow.util.MapperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -67,6 +68,11 @@ public class EquipmentServiceImpl implements EquipmentService {
             throw new EquipmentNotFoundException(equipmentId + " : Equipment Does Not Exist");
         }
         equipmentRepo.deleteById(equipmentId);
+    }
+
+    @Override
+    public List<EquipmentDTO> getAllEquipments() {
+        return mapperUtil.mapEquipmentEntitiesToDtos(equipmentRepo.findAll());
     }
 
     @Override

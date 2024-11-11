@@ -34,6 +34,11 @@ public class EquipmentController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @GetMapping
+    public ResponseUtil getAllEquipments() {
+        return new ResponseUtil("Success", "Retrieved All Equipments", equipmentService.getAllEquipments());
+    }
+
     @GetMapping("/newid")
     public ResponseUtil getNewEquipmentId() {
         return new ResponseUtil("Success", "Retrieved New Equipment Id", AppUtil.generateEquipmentId(equipmentService.findLastEquipmentId()));
