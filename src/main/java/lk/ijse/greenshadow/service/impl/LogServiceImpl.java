@@ -81,4 +81,9 @@ public class LogServiceImpl implements LogService {
         }
         logRepo.deleteById(logCode);
     }
+
+    @Override
+    public String findLastLogCode() {
+        return logRepo.findLastLogCode();
+    }
 }

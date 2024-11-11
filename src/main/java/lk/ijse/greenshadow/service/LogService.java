@@ -8,4 +8,5 @@ public interface LogService {
     void saveLog(LogDTO logDTO);
     List<LogDTO> getAllLogs();
     void deleteLog(String logCode);
+    String findLastLogCode();
 }

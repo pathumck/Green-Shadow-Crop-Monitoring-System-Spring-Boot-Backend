@@ -74,4 +74,10 @@ public class LogController {
         logService.deleteLog(logCode);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @GetMapping("/nextcode")
+    public ResponseUtil getNewLogCode() {
+        String newLogCode = AppUtil.generateLogCode(logService.findLastLogCode());
+        return new ResponseUtil("Success", "Retrieved New Log Code", newLogCode);
+    }
 }

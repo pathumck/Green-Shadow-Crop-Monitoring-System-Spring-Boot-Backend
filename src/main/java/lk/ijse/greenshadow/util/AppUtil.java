@@ -33,4 +33,16 @@ public class AppUtil {
             return "C00" + nextNumericPart;
         }
     }
+
+    public static String generateLogCode(String lastLogCode) {
+        if (lastLogCode == null || lastLogCode.isEmpty() || !lastLogCode.matches("^L\\d+$")) {
+            return "L001";
+        } else {
+            String numericPart = lastLogCode.substring(3);
+            int numericValue = Integer.parseInt(numericPart);
+            int nextNumericValue = numericValue + 1;
+            String nextNumericPart = String.format("%0" + numericPart.length() + "d", nextNumericValue);
+            return "L00" + nextNumericPart;
+        }
+    }
 }
