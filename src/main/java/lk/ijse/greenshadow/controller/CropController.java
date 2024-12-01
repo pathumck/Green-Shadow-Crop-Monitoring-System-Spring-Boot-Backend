@@ -67,4 +67,9 @@ public class CropController {
         String newCropCode = AppUtil.generateCropCode(cropService.findLastCropCode());
         return new ResponseUtil("Success", "Retrieved New Crop Code", newCropCode);
     }
+
+    @GetMapping("/{cropCode}")
+    public ResponseUtil getCropByCode(@PathVariable("cropCode") String cropCode) {
+        return new ResponseUtil("Success", "Retrieved Crop", cropService.getCropByCode(cropCode));
+    }
 }

@@ -86,4 +86,9 @@ public class FieldController {
         String newFieldCode = AppUtil.generateFieldCode(fieldService.findLastFieldCode());
         return new ResponseUtil("Success", "Retrieved New Field Code", newFieldCode);
     }
+
+    @GetMapping("/{fieldCode}")
+    public ResponseUtil getFieldByCode(@PathVariable("fieldCode") String fieldCode) {
+        return new ResponseUtil("Success", "Retrieved Field", fieldService.getFieldByCode(fieldCode));
+    }
 }

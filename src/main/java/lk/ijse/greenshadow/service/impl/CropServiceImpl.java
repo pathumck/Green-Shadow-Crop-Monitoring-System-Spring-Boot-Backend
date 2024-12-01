@@ -52,4 +52,9 @@ public class CropServiceImpl implements CropService {
     public String findLastCropCode() {
         return cropRepo.findLastCropCode();
     }
+
+    @Override
+    public CropDTO getCropByCode(String cropCode) {
+        return mapperUtil.mapCropEntityToDto(cropRepo.findById(cropCode).get());
+    }
 }

@@ -95,4 +95,13 @@ public class FieldServiceImpl implements FieldService {
     public String findLastFieldCode() {
         return fieldRepo.getLastFieldCode();
     }
+
+    @Override
+    public FieldDTO getFieldByCode(String fieldCode) {
+        Optional<FieldEntity> fieldOpt = fieldRepo.findById(fieldCode);
+        if(!fieldOpt.isPresent()) {
+            throw new FieldNotFoundException(fieldCode + " : Field Does Not Exist");
+        }
+        return mapperUtil.mapFieldEntityToDto(fieldOpt.get());
+    }
 }
