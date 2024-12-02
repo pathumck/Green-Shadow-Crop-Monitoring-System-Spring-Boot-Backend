@@ -95,4 +95,9 @@ public class StaffServiceImpl implements StaffService {
     public String findLastStaffId() {
         return staffRepo.findLastStaffId();
     }
+
+    @Override
+    public StaffDTO getStaffById(String staffId) {
+        return mapperUtil.mapStaffEntityToDto(staffRepo.findById(staffId).get());
+    }
 }

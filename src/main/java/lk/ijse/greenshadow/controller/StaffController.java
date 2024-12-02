@@ -56,4 +56,9 @@ public class StaffController {
     public ResponseUtil getNewStaffId() {
         return new ResponseUtil("Success", "Retrieved New Staff Id", AppUtil.generateStaffId(staffService.findLastStaffId()));
     }
+
+    @GetMapping("/{staffId}")
+    public ResponseUtil getStaffById(@PathVariable("staffId") String staffId) {
+        return new ResponseUtil("Success", "Retrieved Staff", staffService.getStaffById(staffId));
+    }
 }
