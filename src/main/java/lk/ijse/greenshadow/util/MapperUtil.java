@@ -66,4 +66,8 @@ public class MapperUtil {
     public CropDTO mapCropEntityToDto(CropEntity cropEntity) {
         return modelMapper.map(cropEntity, CropDTO.class);
     }
+
+    public VehicleDTO mapVehicleEntityToDto(VehicleEntity vehicleEntity) {
+        return modelMapper.map(vehicleEntity, VehicleDTO.class);
+    }
 }

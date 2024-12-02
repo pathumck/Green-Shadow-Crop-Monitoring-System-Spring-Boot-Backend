@@ -43,4 +43,9 @@ public class VehicleController {
     public ResponseUtil getNewVehicleCode() {
         return new ResponseUtil("Success", "Retrieved New Vehicle Code", AppUtil.generateVehicleCode(vehicleService.findLastVehicleCode()));
     }
+
+    @GetMapping("/{vehicleCode}")
+    public ResponseUtil getVehicleByCode(@PathVariable("vehicleCode") String vehicleCode) {
+        return new ResponseUtil("Success", "Retrieved Vehicle", vehicleService.getVehicleByCode(vehicleCode));
+    }
 }

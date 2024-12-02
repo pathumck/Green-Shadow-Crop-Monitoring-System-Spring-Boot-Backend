@@ -60,4 +60,9 @@ public class VehicleServiceImpl implements VehicleService {
     public String findLastVehicleCode() {
         return vehicleRepo.findLastVehicleCode();
     }
+
+    @Override
+    public VehicleDTO getVehicleByCode(String vehicleCode) {
+        return mapperUtil.mapVehicleEntityToDto(vehicleRepo.findById(vehicleCode).get());
+    }
 }
