@@ -43,7 +43,7 @@ public class StaffEntity {
     )
     private List<FieldEntity> fields;
 
-    @OneToMany(mappedBy = "staff", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "staff", cascade = CascadeType.PERSIST)
     private List<VehicleEntity> vehicles;
 
     @OneToMany(mappedBy = "staff", cascade = CascadeType.ALL)
