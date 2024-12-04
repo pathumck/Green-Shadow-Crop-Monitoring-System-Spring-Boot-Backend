@@ -76,6 +76,11 @@ public class EquipmentServiceImpl implements EquipmentService {
     }
 
     @Override
+    public EquipmentDTO getEquipmentById(String equipmentId) {
+        return mapperUtil.mapEquipmentEntityToDto(equipmentRepo.findById(equipmentId).get());
+    }
+
+    @Override
     public String findLastEquipmentId() {
         return equipmentRepo.findLastEquipmentId();
     }

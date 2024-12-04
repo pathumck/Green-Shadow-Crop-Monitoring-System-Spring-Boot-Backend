@@ -43,4 +43,9 @@ public class EquipmentController {
     public ResponseUtil getNewEquipmentId() {
         return new ResponseUtil("Success", "Retrieved New Equipment Id", AppUtil.generateEquipmentId(equipmentService.findLastEquipmentId()));
     }
+
+    @GetMapping("/{equipmentId}")
+    public ResponseUtil getEquipmentById(@PathVariable("equipmentId") String equipmentId) {
+        return new ResponseUtil("Success", "Retrieved Equipment", equipmentService.getEquipmentById(equipmentId));
+    }
 }

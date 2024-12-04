@@ -74,4 +74,8 @@ public class MapperUtil {
     public StaffDTO mapStaffEntityToDto(StaffEntity staffEntity) {
         return modelMapper.map(staffEntity, StaffDTO.class);
     }
+
+    public EquipmentDTO mapEquipmentEntityToDto(EquipmentEntity equipmentEntity) {
+        return modelMapper.map(equipmentEntity, EquipmentDTO.class);
+    }
 }
