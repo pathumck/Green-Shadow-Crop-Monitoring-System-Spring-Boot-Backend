@@ -61,4 +61,9 @@ public class StaffController {
     public ResponseUtil getStaffById(@PathVariable("staffId") String staffId) {
         return new ResponseUtil("Success", "Retrieved Staff", staffService.getStaffById(staffId));
     }
+
+    @GetMapping("/fieldstaff/{fieldCode}")
+    public ResponseUtil getFieldStaffByFieldCode(@PathVariable("fieldCode") String fieldCode) {
+        return new ResponseUtil("Success", "Retrieved Field Staff", staffService.getFieldStaffByFieldCode(fieldCode));
+    }
 }

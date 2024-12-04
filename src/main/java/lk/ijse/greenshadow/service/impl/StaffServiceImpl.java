@@ -100,4 +100,13 @@ public class StaffServiceImpl implements StaffService {
     public StaffDTO getStaffById(String staffId) {
         return mapperUtil.mapStaffEntityToDto(staffRepo.findById(staffId).get());
     }
+
+    @Override
+    public List<StaffDTO> getFieldStaffByFieldCode(String fieldCode) {
+        Optional<FieldEntity> fieldOpt = fieldRepo.findById(fieldCode);
+        if(!fieldOpt.isPresent()) {
+            throw new FieldNotFoundException(fieldCode + " : Field Does Not Exist");
+        }
+        return mapperUtil.mapStaffEntitiesToDtos(fieldOpt.get().getStaffs());
+    }
 }
