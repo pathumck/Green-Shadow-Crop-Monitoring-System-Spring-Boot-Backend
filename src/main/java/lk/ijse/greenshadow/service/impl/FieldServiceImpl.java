@@ -1,5 +1,6 @@
 package lk.ijse.greenshadow.service.impl;
 
+import lk.ijse.greenshadow.dto.CropDTO;
 import lk.ijse.greenshadow.dto.FieldCropDTO;
 import lk.ijse.greenshadow.dto.FieldDTO;
 import lk.ijse.greenshadow.entity.CropEntity;
@@ -103,5 +104,14 @@ public class FieldServiceImpl implements FieldService {
             throw new FieldNotFoundException(fieldCode + " : Field Does Not Exist");
         }
         return mapperUtil.mapFieldEntityToDto(fieldOpt.get());
+    }
+
+    @Override
+    public List<CropDTO> getFieldCropsByFieldCode(String fieldCode) {
+        Optional<FieldEntity> fieldOpt = fieldRepo.findById(fieldCode);
+        if(!fieldOpt.isPresent()) {
+            throw new FieldNotFoundException(fieldCode + " : Field Does Not Exist");
+        }
+        return mapperUtil.mapCropEntitiesToDtos(fieldOpt.get().getCrops());
     }
 }

@@ -91,4 +91,9 @@ public class FieldController {
     public ResponseUtil getFieldByCode(@PathVariable("fieldCode") String fieldCode) {
         return new ResponseUtil("Success", "Retrieved Field", fieldService.getFieldByCode(fieldCode));
     }
+
+    @GetMapping("/fieldcrops/{fieldCode}")
+    public ResponseUtil getFieldCropsByFieldCode(@PathVariable("fieldCode") String fieldCode) {
+        return new ResponseUtil("Success", "Retrieved Field Crops", fieldService.getFieldCropsByFieldCode(fieldCode));
+    }
 }

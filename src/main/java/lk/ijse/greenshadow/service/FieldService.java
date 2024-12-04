@@ -1,5 +1,6 @@
 package lk.ijse.greenshadow.service;
 
+import lk.ijse.greenshadow.dto.CropDTO;
 import lk.ijse.greenshadow.dto.FieldCropDTO;
 import lk.ijse.greenshadow.dto.FieldDTO;
 
@@ -14,4 +15,5 @@ public interface FieldService {
     void deleteFieldCrops(String fieldCode, String cropCode);
     String findLastFieldCode();
     FieldDTO getFieldByCode(String fieldCode);
+    List<CropDTO> getFieldCropsByFieldCode(String fieldCode);
 }
