@@ -1,6 +1,7 @@
 package lk.ijse.greenshadow.util;
 
 import java.util.Base64;
+import java.util.UUID;
 
 public class AppUtil {
     public static String imageToBase64(byte[] image) {
@@ -78,4 +79,9 @@ public class AppUtil {
             return "V00" + nextNumericPart;
         }
     }
+
+    public static String generateUserId() {
+        return "UID" + UUID.randomUUID();
+    }
+
 }
