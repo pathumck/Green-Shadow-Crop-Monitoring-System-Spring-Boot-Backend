@@ -71,7 +71,20 @@ public class LogServiceImpl implements LogService {
 
     @Override
     public List<LogDTO> getAllLogs() {
-        return mapperUtil.mapLogEntitiesToDtos(logRepo.findAll());
+        List<LogEntity> logEntities = logRepo.findAll();
+        List<LogDTO> logDTOs = new ArrayList<>();
+        for (LogEntity logEntity : logEntities) {
+            LogDTO logDTO = new LogDTO();
+            logDTO.setLogCode(logEntity.getLogCode());
+            logDTO.setDate(logEntity.getDate());
+            logDTO.setDetails(logEntity.getDetails());
+            logDTO.setImage(logEntity.getImage());
+            logDTO.setLogFields(mapperUtil.mapFieldEntitiesToDtos(logEntity.getFields()));
+            logDTO.setLogCrops(mapperUtil.mapCropEntitiesToDtos(logEntity.getCrops()));
+            logDTO.setLogStaff(mapperUtil.mapStaffEntitiesToDtos(logEntity.getStaffs()));
+            logDTOs.add(logDTO);
+        }
+        return logDTOs;
     }
 
     @Override
