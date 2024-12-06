@@ -22,4 +22,5 @@ public class StaffDTO {
     private String email;
     private String designation;
     private String role;
+    private String gender;
 }

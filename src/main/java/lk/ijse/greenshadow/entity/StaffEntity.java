@@ -28,6 +28,7 @@ public class StaffEntity {
     private String addressLine5;
     private String email;
     private String designation;
+    private String gender;
 
     @Enumerated(EnumType.STRING)
     private StaffRole role;
