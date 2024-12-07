@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,6 +25,8 @@ import java.util.List;
 public class LogController {
     @Autowired
     LogService logService;
+
+    @PreAuthorize("hasRole('MANAGER') or hasRole('SCIENTIST')")
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Void> saveLog(@RequestParam("logCode") String logCode,
                                         @RequestParam("date") String date,
@@ -64,17 +67,20 @@ public class LogController {
         }
     }
 
+    @PreAuthorize("hasRole('MANAGER') or hasRole('SCIENTIST') or hasRole('ADMINISTRATIVE')")
     @GetMapping
     public ResponseUtil getAllLogs() {
         return new ResponseUtil("Success", "Retrieved All Logs", logService.getAllLogs());
     }
 
+    @PreAuthorize("hasRole('MANAGER') or hasRole('SCIENTIST')")
     @DeleteMapping("/{logCode}")
     public ResponseEntity<Void> deleteLog(@PathVariable("logCode") String logCode) {
         logService.deleteLog(logCode);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @PreAuthorize("hasRole('MANAGER') or hasRole('SCIENTIST') or hasRole('ADMINISTRATIVE')")
     @GetMapping("/nextcode")
     public ResponseUtil getNewLogCode() {
         String newLogCode = AppUtil.generateLogCode(logService.findLastLogCode());
